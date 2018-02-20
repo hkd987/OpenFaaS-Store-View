@@ -16,14 +16,16 @@ axios.get('https://raw.githubusercontent.com/openfaas/store/master/store.json')
   console.log(err)
 })
 
-const findMatches = (wordToMatch, someArray) => { // called by the displayMatches function
-  return someArray.filter(item => { // helper function to filter for matches in the studentArray
+// helper function to soft array for view
+const findMatches = (wordToMatch, someArray) => {
+  return someArray.filter(item => {
     const regex = new RegExp(wordToMatch, 'gi') // uppper lower doesnt matter and case insinsitve
     return item.title.match(regex)
   })
 }
 
-const runMainView = (array, inject) => {
+// main view build for app
+const runMainView = (array, inject) => { // view function can be run with any array and item
   const html = array.map((item) => {
     return `<div class="column is-one-quarter">
               <div class="card">
@@ -44,15 +46,16 @@ const runMainView = (array, inject) => {
   inject.innerHTML = html
 }
 
-const searchMatchView = () => {
+// takes value from search box and builds new array then takes and builds new view
+const searchMatchView = () => { // run to find search values and display items
   const matchArray = findMatches(searchBox.value, store)
-  runMainView(matchArray, mainView)
-  searchBox.value = ''
+  runMainView(matchArray, mainView) // use new array from above to build new view.
+  searchBox.value = '' // reset search box
 }
 
-const resetView = () => {
+const resetView = () => { // view all items function
   runMainView(store, mainView)
 }
 
-searchButton.addEventListener('click', searchMatchView)
-resetViewButton.addEventListener('click', resetView)
+searchButton.addEventListener('click', searchMatchView) // search for matches in the input box on page
+resetViewButton.addEventListener('click', resetView)  // reset and view all
