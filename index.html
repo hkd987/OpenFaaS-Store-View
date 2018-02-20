@@ -1,0 +1,50 @@
+<html>
+  <head>
+    <title>
+      OpenFAAS Store
+    </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div id="mainApp" class="container">
+
+      <section class="hero is-medium is-info is-bold">
+        <div class="hero-body">
+          <div class="columns is-vcentered">
+            <div class="column is-half is-left">
+              <h1 class="title">
+                OpenFAAS Store
+              </h1>
+              <h2 class="subtitle">
+                Search For Packages
+              </h2>
+            </div>
+            <div class="column is-half">
+              <input class="input" id="searchBox"/>
+              <br>
+              <button class="button" id="searchButton">Search</button>
+              <button class="button is-dark" id="resetView">View All</button
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <seciton class="section">
+        <section class="hero" >
+          <div class="container">
+            <div class="columns is-multiline" id="mainView">
+              <!-- search results inject here -->
+            </div>
+          </dvi>
+        </section>
+      </section>
+
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
