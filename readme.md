@@ -4,4 +4,4 @@ Looking at the issue, [here](https://github.com/openfaas/store/issues/13), I dec
 
 # View Project
 
-hosted on an Amazon S3 bucket just for kicks [here](https://s3.amazonaws.com/basicbuckethkd987/index.html) 
+hosted on an Amazon S3 bucket just for kicks [here](https://s3.amazonaws.com/basicbuckethkd987/index.html)

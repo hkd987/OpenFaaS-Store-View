@@ -4,17 +4,13 @@ const mainView = document.getElementById('mainView')
 const searchBox = document.getElementById('searchBox')
 const searchButton = document.getElementById('searchButton')
 const resetViewButton = document.getElementById('resetView')
-const store = []
+const store = [] // built on page load from the axios JSON pull.
 
-// defined on page load
+// defined on page load at top of HTML
 axios.get('https://raw.githubusercontent.com/openfaas/store/master/store.json')
-  .then((res) => { // create the store
-    store.push(...res.data)
-    runMainView(store, mainView)
-  })
-.catch((err) => { // if err let me know
-  console.log(err)
-})
+  .then((res) => store.push(...res.data))
+  .then(() => runMainView(store, mainView))
+  .catch((err) => console.log(err))
 
 // helper function to soft array for view
 const findMatches = (wordToMatch, someArray) => {
@@ -53,9 +49,7 @@ const searchMatchView = () => { // run to find search values and display items
   searchBox.value = '' // reset search box
 }
 
-const resetView = () => { // view all items function
-  runMainView(store, mainView)
-}
+const resetView = () => runMainView(store, mainView)
 
 searchButton.addEventListener('click', searchMatchView) // search for matches in the input box on page
 resetViewButton.addEventListener('click', resetView)  // reset and view all
