@@ -1,19 +1,10 @@
-// code by Lundin Matthews so call me maybe?
+// code by Lundin Matthews -- HKD987
 
 const mainView = document.getElementById('mainView')
 const searchBox = document.getElementById('searchBox')
 const searchButton = document.getElementById('searchButton')
 const resetViewButton = document.getElementById('resetView')
 const store = [] // built on page load from the axios JSON pull.
-// const tester = []
-// defined on page load at top of HTML
-
-/*
-axios.get('https://raw.githubusercontent.com/openfaas/store/master/store.json')
-  .then((res) => store.push(...res.data))
-  .then(() => runMainView(store, mainView))
-  .catch((err) => console.log(err))
-*/
 
 fetch('https://raw.githubusercontent.com/openfaas/store/master/store.json')
   .then((blob) => blob.json())
