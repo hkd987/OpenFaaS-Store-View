@@ -5,7 +5,7 @@ const searchBox = document.getElementById('searchBox')
 const searchButton = document.getElementById('searchButton')
 const resetViewButton = document.getElementById('resetView')
 const store = [] // built on page load from the axios JSON pull.
-const tester = []
+// const tester = []
 // defined on page load at top of HTML
 
 /*
