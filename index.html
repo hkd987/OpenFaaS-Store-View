@@ -1,13 +1,14 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <title>
-      OpenFaaS Store
-    </title>
+    <meta charset="utf-8">
+    <title>OpenFaaS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
     <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
-
+    <script src="https://unpkg.com/vue"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
   </head>
   <body>
     <div id="mainApp" class="container">
@@ -24,27 +25,80 @@
               </h2>
             </div>
             <div class="column is-half">
-              <input class="input" id="searchBox"/>
+              <input class="input" v-model="search"/>
               <br>
-              <button class="button" id="searchButton">Search</button>
-              <button class="button is-dark" id="resetView">View All</button
+              <button class="button" v-on:click="searchMatchView">Search</button>
+              <button class="button is-dark" v-on:click="resetView">View All</button
             </div>
           </div>
         </div>
       </section>
 
-      <seciton class="section">
+      <section class="section">
         <section class="hero" >
           <div class="container">
-            <div class="columns is-multiline" id="mainView">
-              <!-- search results inject here -->
+            <div class="columns is-multiline">
+              <div class="column is-one-quarter" v-for="da in dataList">
+                        <div class="card">
+                          <header class="card-header">
+                            <p class="card-header-title">{{ da.title }}</p>
+                            </header>
+                            <div class="card-content">
+                              <div class="content">
+                                <p>{{ da.description }}</p>
+                              </div>
+                            </div>
+                          <footer class="card-footer">
+                            <a class="card-footer-item" :href="da.repo_url">Repo URL</a>
+                          </footer>
+                        </div>
+                    </div>
             </div>
           </dvi>
         </section>
       </section>
 
     </div>
+    <script>
+      const app = new Vue({
+        el: '#mainApp',
+          data: {
+            dataList: [],
+            search: ''
+          },
+          methods: {
+              fullArray () {
+                fetch('https://raw.githubusercontent.com/openfaas/store/master/store.json')
+                  .then((blob) => blob.json())
+                  .then((res) => this.dataList.push(...res))
+                  .catch((err) => console.log(err))
+              },
+              findMatches (wordToMatch, someArray) {
+                return someArray.filter(item => {
+                  const regex = new RegExp(wordToMatch, 'gi') // uppper lower doesnt matter and case insinsitve
+                  return item.title.match(regex)
+                })
+              },
+              searchMatchView () {
+                this.dataList = this.findMatches(this.search, this.dataList)
+                this.search = ''
+              },
+              resetView () {
+                this.emptyDataList()
+                this.fullArray()
+                this.search = ''
+              },
+              emptyDataList () {
+                while (this.dataList.length > 0) {
+                  this.dataList.pop()
+                }
+              }
+            },
+            created() {
+              this.fullArray()
+          }
+        });
 
-    <script src="app.js"></script>
+    </script>
   </body>
 </html>
